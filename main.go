@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"os"
 	"os/signal"
@@ -10,23 +9,13 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
-var Token = "TOKEN_HERE"
-
-func init() {
-
-	flag.StringVar(&Token, "t", "", "Bot Token")
-	flag.Parse()
-}
-
 func main() {
-
 	// Create a new Discord session using the provided bot token.
-	session, err := discordgo.New("Bot " + Token)
+	session, err := discordgo.New("Bot " + DiscordToken)
 	if err != nil {
 		fmt.Println("error creating Discord session,", err)
 		return
 	}
-
 	// Register the messageCreate func as a callback for MessageCreate events.
 	session.AddHandler(messageCreate)
 
@@ -71,5 +60,9 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 	if m.Content == "hello" {
 		s.ChannelMessageSend(m.ChannelID, "Hello, "+m.Author.Username)
+	}
+
+	if m.Content == "hello there" {
+		s.ChannelMessageSend(m.ChannelID, "General Kenobi!")
 	}
 }
