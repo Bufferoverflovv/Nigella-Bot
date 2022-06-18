@@ -1,42 +1,71 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"os"
 	"os/signal"
-	"syscall"
 
 	"github.com/bwmarrin/discordgo"
 )
 
+var s *discordgo.Session
+
+func init() {
+	var err error
+	s, err = discordgo.New("Bot " + DiscordToken)
+	if err != nil {
+		log.Fatalf("Invalid bot parameters: %v", err)
+	}
+}
+
+func init() {
+	s.AddHandler(func(s *discordgo.Session, i *discordgo.InteractionCreate) {
+		if h, ok := commands.commandHandlers[i.ApplicationCommandData().Name]; ok {
+			h(s, i)
+		}
+	})
+}
+
 func main() {
-	// Create a new Discord session using the provided bot token.
-	session, err := discordgo.New("Bot " + DiscordToken)
+	s.AddHandler(func(s *discordgo.Session, r *discordgo.Ready) {
+		log.Printf("Logged in as: %v#%v", s.State.User.Username, s.State.User.Discriminator)
+	})
+	err := s.Open()
 	if err != nil {
-		fmt.Println("error creating Discord session,", err)
-		return
-	}
-	// Register the messageCreate func as a callback for MessageCreate events.
-	session.AddHandler(messageCreate)
-
-	// In this example, we only care about receiving message events.
-	session.Identify.Intents = discordgo.IntentsGuildMessages
-
-	// Open a websocket connection to Discord and begin listening.
-	err = session.Open()
-	if err != nil {
-		fmt.Println("error opening connection,", err)
-		return
+		log.Fatalf("Cannot open the session: %v", err)
 	}
 
-	// Wait here until CTRL-C or other term signal is received.
-	fmt.Println("Bot is now running.  Press CTRL-C to exit.")
-	sc := make(chan os.Signal, 1)
-	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt, os.Kill)
-	<-sc
+	s.AddHandler(func(s *discordgo.Session, i *discordgo.InteractionCreate) {
+		if h, ok := commands.commandHandlers[i.ApplicationCommandData().Name]; ok {
+			h(s, i)
+		}
+	})
 
-	// Cleanly close down the Discord session.
-	session.Close()
+	log.Println("Adding commands...")
+	registeredCommands := make([]*discordgo.ApplicationCommand, len(commands.cmds))
+	for i, v := range commands.cmds {
+		cmd, err := s.ApplicationCommandCreate(s.State.User.ID, GuildID, v)
+		if err != nil {
+			log.Panicf("Cannot create '%v' command: %v", v.Name, err)
+		}
+		registeredCommands[i] = cmd
+	}
+
+	defer s.Close()
+
+	stop := make(chan os.Signal, 1)
+	signal.Notify(stop, os.Interrupt)
+	log.Println("Press Ctrl+C to exit")
+	<-stop
+
+	for _, v := range registeredCommands {
+		err := s.ApplicationCommandDelete(s.State.User.ID, GuildID, v.ID)
+		if err != nil {
+			log.Panicf("Cannot delete '%v' command: %v", v.Name, err)
+		}
+	}
+
+	log.Println("Gracefully shutting down.")
 }
 
 // This function will be called (due to AddHandler above) every time a new

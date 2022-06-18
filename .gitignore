@@ -22,3 +22,6 @@ go.work
 
 # Config file that contains secrets
 config.go
+
+# Yaml file that contains secrets
+config.yml
