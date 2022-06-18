@@ -12,6 +12,7 @@ This project is a work in progress and is more of a personal project to help mys
 * Low foot-print and lightweight 
 * Modular structure to be easily extended or modified
 * Can be deployed on Windows, Linux and Mac
+* Makes use of Discord Slash Commands and official Discord Interactions
 
 ## Requirements
 * A discord bot setup in the Discord Developer Portal 
