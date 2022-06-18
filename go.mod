@@ -1,4 +1,4 @@
-module bufferoverflovv/nigella-bot
+module github.com/Bufferoverflovv/Nigella-Bot
 
 go 1.18
 
