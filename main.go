@@ -5,6 +5,7 @@ import (
 	"os"
 	"os/signal"
 
+	"github.com/Bufferoverflovv/Nigella-Bot/commands"
 	"github.com/bwmarrin/discordgo"
 )
 
@@ -20,7 +21,7 @@ func init() {
 
 func init() {
 	s.AddHandler(func(s *discordgo.Session, i *discordgo.InteractionCreate) {
-		if h, ok := commands.commandHandlers[i.ApplicationCommandData().Name]; ok {
+		if h, ok := commands.CommandHandlers[i.ApplicationCommandData().Name]; ok {
 			h(s, i)
 		}
 	})
@@ -36,14 +37,14 @@ func main() {
 	}
 
 	s.AddHandler(func(s *discordgo.Session, i *discordgo.InteractionCreate) {
-		if h, ok := commands.commandHandlers[i.ApplicationCommandData().Name]; ok {
+		if h, ok := commands.CommandHandlers[i.ApplicationCommandData().Name]; ok {
 			h(s, i)
 		}
 	})
 
 	log.Println("Adding commands...")
-	registeredCommands := make([]*discordgo.ApplicationCommand, len(commands.cmds))
-	for i, v := range commands.cmds {
+	registeredCommands := make([]*discordgo.ApplicationCommand, len(commands.SlashCommands))
+	for i, v := range commands.SlashCommands {
 		cmd, err := s.ApplicationCommandCreate(s.State.User.ID, GuildID, v)
 		if err != nil {
 			log.Panicf("Cannot create '%v' command: %v", v.Name, err)

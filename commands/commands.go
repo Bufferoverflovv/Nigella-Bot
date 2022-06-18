@@ -14,7 +14,7 @@ var (
 	dmPermission                   = false
 	defaultMemberPermissions int64 = discordgo.PermissionManageServer
 
-	cmds = []*discordgo.ApplicationCommand{
+	SlashCommands = []*discordgo.ApplicationCommand{
 		{
 			Name: "basic-command",
 			// All commands and options must have a description
@@ -198,7 +198,7 @@ var (
 		},
 	}
 
-	commandHandlers = map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate){
+	CommandHandlers = map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate){
 		"basic-command": func(s *discordgo.Session, i *discordgo.InteractionCreate) {
 			s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
 				Type: discordgo.InteractionResponseChannelMessageWithSource,
