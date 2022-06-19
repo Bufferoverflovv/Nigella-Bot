@@ -10,32 +10,39 @@ var
 	DirtyTalkCMD = discordgo.ApplicationCommand{
 		Name:        "nigella",
 		Description: "Dirty Talk",
-        Options: []*discordgo.ApplicationCommandOption{
-            {
-            Type:        discordgo.ApplicationCommandOptionString,
-            Name:        "xmas",
-            Description: "XXXmas",
-            Required:    false,
 	}
 
 	DirtyTalkCommand = map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate)
         {
 		"nigella": func(s *discordgo.Session, i *discordgo.InteractionCreate)
             {
-			options := i.ApplicationCommandData().Options
+			s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse
                 {
-				if option, ok := optionMap["xmas"]; ok {
-				margs = append(margs, option.StringValue())
-				msgformat += "https://www.youtube.com/watch?v=2wncEeJZqzM"{
-                    }
-                }
-                else s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
-                    Type: discordgo.InteractionResponseChannelMessageWithSource,
-                    Data: &discordgo.InteractionResponseData{
+				Type: discordgo.InteractionResponseChannelMessageWithSource,
+				Data: &discordgo.InteractionResponseData
+                    {
 					Content: "https://www.youtube.com/watch?v=RtS2Ikk7A9I",
-                    }
-                    })
-                }
-            }
+                    },
+                })
+            },
+        }
+    DirtyXmasCMD = discordgo.ApplicationCommand{
+		Name:        "nigellla xmas",
+		Description: "XXXmas Talk",
+	}
+
+	DirtyXmasCommand = map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate)
+        {
+		"nigellla xmas": func(s *discordgo.Session, i *discordgo.InteractionCreate)
+            {
+			s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse
+                {
+				Type: discordgo.InteractionResponseChannelMessageWithSource,
+				Data: &discordgo.InteractionResponseData
+                    {
+					Content: "https://www.youtube.com/watch?v=2wncEeJZqzM",
+                    },
+                })
+            },
         }
     )
