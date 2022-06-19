@@ -25,3 +25,6 @@ config.go
 
 # Yaml file that contains secrets
 config.yml
+
+# Nigella bot binary
+nigella-bot
