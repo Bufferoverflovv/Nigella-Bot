@@ -1,6 +1,8 @@
 package main
 
 import (
+	//"fmt"
+
 	"log"
 	"os"
 	"os/signal"
@@ -36,14 +38,22 @@ func main() {
 		log.Fatalf("Cannot open the session: %v", err)
 	}
 
-	s.AddHandler(func(s *discordgo.Session, i *discordgo.InteractionCreate) {
-		if h, ok := commands.CommandHandlers[i.ApplicationCommandData().Name]; ok {
-			h(s, i)
-		}
-	})
+	// s.AddHandler(func(s *discordgo.Session, i *discordgo.InteractionCreate) {
+	// 	if h, ok := commands.CommandHandlers[i.ApplicationCommandData().Name]; ok {
+	// 		h(s, i)
+	// 	}
+	// })
+	s.ApplicationCommandCreate(s.State.User.ID, GuildID, &commands.HelloWorldCMD)
+
+	// s.AddHandler(func(s *discordgo.Session, i *discordgo.InteractionCreate) {
+	// 	if h, ok := commands.HelloWorldCommand[i.ApplicationCommandData().Name]; ok {
+	// 		h(s, i)
+	// 	}
+	// })
 
 	log.Println("Adding commands...")
 	registeredCommands := make([]*discordgo.ApplicationCommand, len(commands.SlashCommands))
+	//registeredCommands[0] = &commands.HelloWorldCMD
 	for i, v := range commands.SlashCommands {
 		cmd, err := s.ApplicationCommandCreate(s.State.User.ID, GuildID, v)
 		if err != nil {

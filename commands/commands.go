@@ -10,9 +10,9 @@ import (
 )
 
 var (
-	integerOptionMinValue          = 1.0
-	dmPermission                   = false
-	defaultMemberPermissions int64 = discordgo.PermissionManageServer
+	integerOptionMinValue = 1.0
+	//dmPermission                   = false
+	//defaultMemberPermissions int64 = discordgo.PermissionManageServer
 
 	SlashCommands = []*discordgo.ApplicationCommand{
 		{
@@ -21,6 +21,13 @@ var (
 			// Commands/options without description will fail the registration
 			// of the command.
 			Description: "Basic command",
+		},
+		{
+			Name: "hello",
+			// All commands and options must have a description
+			// Commands/options without description will fail the registration
+			// of the command.
+			Description: "Hi",
 		},
 		{
 			Name:        "permission-overview",
