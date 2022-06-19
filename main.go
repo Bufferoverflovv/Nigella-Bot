@@ -37,13 +37,14 @@ func main() {
 		}
 	})
 
-	s.ApplicationCommandCreate(s.State.User.ID, GuildID, &general.HelloWorldCMD)
+	s.AddHandler(func(s *discordgo.Session, i *discordgo.InteractionCreate) {
+		if h, ok := general.DirtyTalkCommand[i.ApplicationCommandData().Name]; ok {
+			h(s, i)
+		}
+	})
 
-	// s.AddHandler(func(s *discordgo.Session, i *discordgo.InteractionCreate) {
-	// 	if h, ok := commands.HelloWorldCommand[i.ApplicationCommandData().Name]; ok {
-	// 		h(s, i)
-	// 	}
-	// })
+	s.ApplicationCommandCreate(s.State.User.ID, GuildID, &general.HelloWorldCMD)
+	s.ApplicationCommandCreate(s.State.User.ID, GuildID, &general.DirtyTalkCMD)
 
 	// log.Println("Adding commands...")
 	// registeredCommands := make([]*discordgo.ApplicationCommand, len(commands.SlashCommands))

@@ -23,11 +23,11 @@ var (
 			Description: "Basic command",
 		},
 		{
-			Name: "hello",
+			Name: "nigella",
 			// All commands and options must have a description
 			// Commands/options without description will fail the registration
 			// of the command.
-			Description: "Hi",
+			Description: "Dirty Talk",
 		},
 		{
 			Name:        "permission-overview",
