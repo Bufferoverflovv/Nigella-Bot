@@ -1,4 +1,6 @@
 # Nigella Bot
+[![Go Report Card](https://goreportcard.com/badge/github.com/Bufferoverflovv/Nigella-Bot)](https://goreportcard.com/report/github.com/Bufferoverflovv/Nigella-Bot)
+
 A discord bot named after the famous chef Nigella for no particular reason...
 
 Nigella bot is a multi-purpose Discord Bot written in Go 
