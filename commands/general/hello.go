@@ -16,6 +16,7 @@ var (
 				Type: discordgo.InteractionResponseChannelMessageWithSource,
 				Data: &discordgo.InteractionResponseData{
 					Content: "Hi There",
+					//Flags:   1 << 6,
 				},
 			})
 		},
