@@ -37,3 +37,11 @@ func deregistercommands(s *discordgo.Session, GuildID string) {
 		}
 	}
 }
+
+func cachecommands() {
+	// TODO
+}
+
+func loadcachecommand() {
+	// TODO
+}
