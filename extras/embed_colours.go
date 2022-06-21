@@ -46,9 +46,9 @@ const (
 )
 
 // Use to convert hex values to decimal for embed colours
-func ConvertHex(HexValue string) int {
+func convertHex(hexvalue string) int {
 
-	num, err := strconv.ParseInt(HexValue, 16, 64)
+	num, err := strconv.ParseInt(hexvalue, 16, 64)
 
 	if err != nil {
 		log.Printf("Not a valid value %s", err)
