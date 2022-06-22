@@ -32,8 +32,8 @@ func randomvalue(i *discordgo.Interaction) string {
 	value := (rand.Intn(max-min+1) + min)
 
 	if value == 6 {
-		return "BANG! <@!" + i.Member.Nick + ">'s head explodes :exploding_head:"
+		return "BANG! " + i.Member.Nick + "'s head explodes :exploding_head:"
 	} else {
-		return "*click* <@!" + i.Member.Nick + "> unfortunately survives to see another day. :gun::nigellaglow:"
+		return "*click* " + i.Member.Nick + " unfortunately survives to see another day. :gun::nigellaglow:"
 	}
 }
