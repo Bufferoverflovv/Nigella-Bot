@@ -8,12 +8,12 @@ import (
 )
 
 var (
-	rouletteCMD = discordgo.ApplicationCommand{
+	RouletteCMD = discordgo.ApplicationCommand{
 		Name:        "roulette",
 		Description: "Russian Roulette",
 	}
 
-	rouletteCommand = map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate){
+	RouletteCommand = map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate){
 		"roulette": func(s *discordgo.Session, i *discordgo.InteractionCreate) {
 			s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
 				Type: discordgo.InteractionResponseChannelMessageWithSource,
