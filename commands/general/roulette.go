@@ -1,14 +1,9 @@
 package general
 
-use rand::Rng;
-
-fn main() {
-		let mut rng = rand::thread_rng();
-
-		let num: u8 = rng.gen_range(0..6);
-}
-
 import (
+	"math/rand"
+	"time"
+
 	"github.com/bwmarrin/discordgo"
 )
 
@@ -19,25 +14,26 @@ var (
 	}
 
 	rouletteCommand = map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate){
-		if num = 6;
-			"roulette": func(s *discordgo.Session, i *discordgo.InteractionCreate) {
-				s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
-					Type: discordgo.InteractionResponseChannelMessageWithSource,
-					Data: &discordgo.InteractionResponseData{
-						Content: "BANG! <@!"+o.ID+">'s head explodes :exploding_head: ",
-					
+		"roulette": func(s *discordgo.Session, i *discordgo.InteractionCreate) {
+			s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
+				Type: discordgo.InteractionResponseChannelMessageWithSource,
+				Data: &discordgo.InteractionResponseData{
+					Content: randomvalue(i.Interaction),
 				},
 			})
 		},
-		else; 
-			"roulette": func(s *discordgo.Session, i *discordgo.InteractionCreate) {
-				s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
-					Type: discordgo.InteractionResponseChannelMessageWithSource,
-					Data: &discordgo.InteractionResponseData{
-						Content: "*click* <@!"+o.ID+"> unfortunately survives to see another day. :gun::nigellaglow:",
-				
-				},
-			})
-		},
-	}	 
+	}
 )
+
+func randomvalue(i *discordgo.Interaction) string {
+	rand.Seed(time.Now().UnixNano())
+	min := 0
+	max := 6
+	value := (rand.Intn(max-min+1) + min)
+
+	if value == 6 {
+		return "BANG! <@!" + i.Member.Nick + ">'s head explodes :exploding_head:"
+	} else {
+		return "*click* <@!" + i.Member.Nick + "> unfortunately survives to see another day. :gun::nigellaglow:"
+	}
+}

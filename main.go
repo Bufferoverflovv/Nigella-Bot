@@ -43,6 +43,13 @@ func main() {
 		}
 	})
 
+	s.AddHandler(func(s *discordgo.Session, i *discordgo.InteractionCreate) {
+		if h, ok := general.rouletteCommand[i.ApplicationCommandData().Name]; ok {
+			h(s, i)
+		}
+	})
+
+	s.ApplicationCommandCreate(s.State.User.ID, GuildID, &general.rouletteCMD)
 	s.ApplicationCommandCreate(s.State.User.ID, GuildID, &general.HelloWorldCMD)
 	s.ApplicationCommandCreate(s.State.User.ID, GuildID, &general.DirtyTalkCMD)
 
