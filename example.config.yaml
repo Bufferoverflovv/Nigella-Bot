@@ -1,0 +1,11 @@
+discord:
+  # Bot Token Goes Here
+  token: ""
+  # Your server ID (Leave blank if you want commands to be global)
+  guildid: ""
+  # Owner(s) of the bot (Use to speficy owner only commands)
+  ownerid: ""
+  # Bot client ID
+  clientid: ""
+  # Bot client secret
+  clientsecret: ""

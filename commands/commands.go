@@ -27,6 +27,20 @@ var (
 			// All commands and options must have a description
 			// Commands/options without description will fail the registration
 			// of the command.
+			Description: "Hi",
+		},
+		{
+			Name: "roulette",
+			// All commands and options must have a description
+			// Commands/options without description will fail the registration
+			// of the command.
+			Description: "Russian Roulette",
+		},
+		{
+			Name: "hello",
+			// All commands and options must have a description
+			// Commands/options without description will fail the registration
+			// of the command.
 			Description: "Dirty Talk",
 		},
 		{

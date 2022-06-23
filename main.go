@@ -1,24 +1,46 @@
 package main
 
 import (
-	//"fmt"
-
+	"io/ioutil"
 	"log"
 	"os"
 	"os/signal"
 
-	//"github.com/Bufferoverflovv/Nigella-Bot/commands"
 	"github.com/Bufferoverflovv/Nigella-Bot/commands/general"
 	"github.com/bwmarrin/discordgo"
+	"gopkg.in/yaml.v3"
 )
 
 var s *discordgo.Session
 
+var GuildID string
+
+type Config struct {
+	Discord struct {
+		Token   string `yaml:"token"`
+		Guildid string `yaml:"guildid"`
+	} `yaml:"discord"`
+}
+
 func init() {
-	var err error
-	s, err = discordgo.New("Bot " + DiscordToken)
+
+	f := &Config{}
+	source, err := ioutil.ReadFile("config.yaml")
 	if err != nil {
-		log.Fatalf("Invalid bot parameters: %v", err)
+		log.Fatalf("Invalid Configuration: %v", err)
+	}
+
+	err = yaml.Unmarshal([]byte(source), &f)
+	if err != nil {
+		log.Fatalf("Error: %v", err)
+	}
+
+	GuildID = f.Discord.Guildid
+
+	var err2 error
+	s, err2 = discordgo.New("Bot " + f.Discord.Token)
+	if err2 != nil {
+		log.Fatalf("Invalid bot parameters: %v", err2)
 	}
 }
 

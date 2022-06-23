@@ -25,7 +25,7 @@ var (
 	}
 )
 
-func randomvalue(i *discordgo.Interaction, s *discordgo.Session) string {
+func randomvalue(i *discordgo.Interaction) string {
 	rand.Seed(time.Now().UnixNano())
 	min := 0
 	max := 6
@@ -33,7 +33,7 @@ func randomvalue(i *discordgo.Interaction, s *discordgo.Session) string {
 
 	if value == 6 {
 		return "BANG! " + i.Member.Nick + "'s head explodes :exploding_head:"
-		GuildMemberTimeout(i.Member, i.Member, until *time.30)
+		//GuildMemberTimeout(i.Member, i.Member, until *time.30)
 	} else {
 		return "*click* " + i.Member.Nick + " unfortunately survives to see another day. :gun::smiling_face_with_tear:"
 	}

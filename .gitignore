@@ -20,11 +20,11 @@
 # Go workspace file
 go.work
 
-# Config file that contains secrets
+# Local config file
 config.go
 
-# Yaml file that contains secrets
-config.yml
+# Local Yaml file
+config.yaml
 
 # Nigella bot binary
 Nigella-Bot
