@@ -10,13 +10,16 @@ import (
 // Add commands here
 var commands = []discordgo.ApplicationCommand{
 	general.HelloWorldCMD,
-	general.DirtyTalkCMD,
 }
 
 var registeredCommands = make([]*discordgo.ApplicationCommand, len(commands))
 
+var commandHandlers = map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate){
+	general.HelloWorldCMD.Name: general.Command,
+}
+
 // Register commands
-func registercommands(s *discordgo.Session, GuildID string) {
+func RegisterCommands(s *discordgo.Session, GuildID string) {
 	log.Println("Loading commands...")
 	for i, v := range commands {
 		cmd, err := s.ApplicationCommandCreate(s.State.User.ID, GuildID, &v)
@@ -25,10 +28,16 @@ func registercommands(s *discordgo.Session, GuildID string) {
 		}
 		registeredCommands[i] = cmd
 	}
+
+	s.AddHandler(func(s *discordgo.Session, i *discordgo.InteractionCreate) {
+		if h, ok := commandHandlers[i.ApplicationCommandData().Name]; ok {
+			h(s, i)
+		}
+	})
 }
 
 //deregister commands
-func deregistercommands(s *discordgo.Session, GuildID string) {
+func DeregisterCommands(s *discordgo.Session, GuildID string) {
 	log.Println("Unloading commands...")
 	for _, v := range registeredCommands {
 		err := s.ApplicationCommandDelete(s.State.User.ID, GuildID, v.ID)
