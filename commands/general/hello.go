@@ -11,11 +11,11 @@ var (
 	}
 
 	HelloWorldCommand = map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate){
-		"hello": Command,
+		"hello": HelloCommand,
 	}
 )
 
-func Command(s *discordgo.Session, i *discordgo.InteractionCreate) {
+func HelloCommand(s *discordgo.Session, i *discordgo.InteractionCreate) {
 	s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
 		Type: discordgo.InteractionResponseChannelMessageWithSource,
 		Data: &discordgo.InteractionResponseData{
