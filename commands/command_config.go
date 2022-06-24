@@ -15,7 +15,7 @@ var commands = []discordgo.ApplicationCommand{
 var registeredCommands = make([]*discordgo.ApplicationCommand, len(commands))
 
 var commandHandlers = map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate){
-	general.HelloWorldCMD.Name: general.Command,
+	general.HelloWorldCMD.Name: general.HelloCommand,
 }
 
 // Register commands
