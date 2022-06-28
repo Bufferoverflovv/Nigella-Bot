@@ -31,13 +31,20 @@ var (
 func EightBallCommand(s *discordgo.Session, i *discordgo.InteractionCreate) {
 	options := i.ApplicationCommandData().Options
 	value := options[0].Value
+	var username string
+
+	if i.Member.Nick == "" {
+		username = i.Member.User.Username
+	} else {
+		username = i.Member.Nick
+	}
 
 	s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
 		Type: discordgo.InteractionResponseChannelMessageWithSource,
 		Data: &discordgo.InteractionResponseData{
 			Embeds: []*discordgo.MessageEmbed{
 				{
-					Description: fmt.Sprintf("**%s** **Asks**:question:\n %s \n\n:8ball: **8ball Says** \n%s", i.Member.Nick, value, ShakeEightBall()),
+					Description: fmt.Sprintf("**%s** **Asks**:question:\n %s \n\n:8ball: **8ball Says** \n%s", username, value, ShakeEightBall()),
 					Color:       extras.DISCORD_GREEN,
 				},
 			},

@@ -22,20 +22,22 @@ func RouletteCommand(s *discordgo.Session, i *discordgo.InteractionCreate) {
 	s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
 		Type: discordgo.InteractionResponseChannelMessageWithSource,
 		Data: &discordgo.InteractionResponseData{
-			Content: randomvalue(i.Interaction),
+			Content: randomvalue(i.Interaction, s),
 		},
 	})
 }
 
-func randomvalue(i *discordgo.Interaction) string {
-	rand.Seed(time.Now().UnixNano())
-	min := 0
+func randomvalue(i *discordgo.Interaction, s *discordgo.Session) string {
+	min := 1
 	max := 6
-	value := (rand.Intn(max-min+1) + min)
+	rand.Seed(time.Now().UnixNano())
+	value := (rand.Intn(max-min) + min)
+
+	timeout := time.Now().Add(time.Minute)
 
 	if value == 6 {
+		s.GuildMemberTimeout(i.GuildID, i.Member.User.ID, &timeout)
 		return "BANG! " + i.Member.Nick + "'s head explodes :exploding_head:"
-		//GuildMemberTimeout(i.Member, i.Member, until *time.30)
 	} else {
 		return "*click* " + i.Member.Nick + " unfortunately survives to see another day. :gun::smiling_face_with_tear:"
 	}
