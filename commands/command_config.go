@@ -3,22 +3,24 @@ package commands
 import (
 	"log"
 
-	commands "github.com/Bufferoverflovv/Nigella-Bot/commands/games"
+	"github.com/Bufferoverflovv/Nigella-Bot/commands/games"
+	"github.com/Bufferoverflovv/Nigella-Bot/commands/general"
 	"github.com/bwmarrin/discordgo"
 )
 
 // Add commands here
 var slashcommands = []discordgo.ApplicationCommand{
-	commands.EightballRegister,
+	games.EightballRegister,
+	general.HelloRegister,
 }
 
 var registeredCommands = make([]*discordgo.ApplicationCommand, len(slashcommands))
 
 var commandHandlers = map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate){
-	//commands.HelloRegister.Name:     general.HelloCommand,
-	//commands.RouletteRegister.Name:  general.RouletteCommand,
-	//commands.DirtyTalkRegister.Name: general.DirtyTalkCommand,
-	commands.EightballRegister.Name: commands.EightBallCommand,
+	general.HelloRegister.Name:     general.HelloCommand,
+	general.RouletteRegister.Name:  general.RouletteCommand,
+	general.DirtyTalkRegister.Name: general.DirtyTalkCommand,
+	games.EightballRegister.Name:   games.EightBallCommand,
 }
 
 // Register commands
