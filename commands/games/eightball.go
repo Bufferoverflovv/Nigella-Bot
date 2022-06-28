@@ -74,7 +74,6 @@ var magicAnswers = [...]string{
 }
 
 func ShakeEightBall() string {
-
 	rand.Seed(time.Now().UnixNano())
 	return magicAnswers[rand.Intn(len(magicAnswers))]
 }
