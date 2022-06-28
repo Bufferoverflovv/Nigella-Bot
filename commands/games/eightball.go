@@ -5,17 +5,17 @@ import (
 )
 
 var (
-	HelloRegister = discordgo.ApplicationCommand{
+	EightballRegister = discordgo.ApplicationCommand{
 		Name:        "hello",
 		Description: "Hi",
 	}
 
-	HelloWorldCommand = map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate){
-		"hello": HelloCommand,
+	EightballHandler = map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate){
+		"hello": EightBallCommand,
 	}
 )
 
-func HelloCommand(s *discordgo.Session, i *discordgo.InteractionCreate) {
+func EightBallCommand(s *discordgo.Session, i *discordgo.InteractionCreate) {
 	s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
 		Type: discordgo.InteractionResponseChannelMessageWithSource,
 		Data: &discordgo.InteractionResponseData{

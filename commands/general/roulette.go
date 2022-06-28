@@ -1,4 +1,4 @@
-package general
+package commands
 
 import (
 	"math/rand"
@@ -8,22 +8,24 @@ import (
 )
 
 var (
-	RouletteCMD = discordgo.ApplicationCommand{
+	RouletteRegister = discordgo.ApplicationCommand{
 		Name:        "roulette",
 		Description: "Russian Roulette",
 	}
 
-	RouletteCommand = map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate){
-		"roulette": func(s *discordgo.Session, i *discordgo.InteractionCreate) {
-			s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
-				Type: discordgo.InteractionResponseChannelMessageWithSource,
-				Data: &discordgo.InteractionResponseData{
-					Content: randomvalue(i.Interaction),
-				},
-			})
-		},
+	RouletteHandler = map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate){
+		"roulette": RouletteCommand,
 	}
 )
+
+func RouletteCommand(s *discordgo.Session, i *discordgo.InteractionCreate) {
+	s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
+		Type: discordgo.InteractionResponseChannelMessageWithSource,
+		Data: &discordgo.InteractionResponseData{
+			Content: randomvalue(i.Interaction),
+		},
+	})
+}
 
 func randomvalue(i *discordgo.Interaction) string {
 	rand.Seed(time.Now().UnixNano())

@@ -3,25 +3,28 @@ package commands
 import (
 	"log"
 
-	"github.com/Bufferoverflovv/Nigella-Bot/commands/general"
+	commands "github.com/Bufferoverflovv/Nigella-Bot/commands/games"
 	"github.com/bwmarrin/discordgo"
 )
 
 // Add commands here
-var commands = []discordgo.ApplicationCommand{
-	general.HelloWorldCMD,
+var slashcommands = []discordgo.ApplicationCommand{
+	commands.EightballRegister,
 }
 
-var registeredCommands = make([]*discordgo.ApplicationCommand, len(commands))
+var registeredCommands = make([]*discordgo.ApplicationCommand, len(slashcommands))
 
 var commandHandlers = map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate){
-	general.HelloWorldCMD.Name: general.HelloCommand,
+	//commands.HelloRegister.Name:     general.HelloCommand,
+	//commands.RouletteRegister.Name:  general.RouletteCommand,
+	//commands.DirtyTalkRegister.Name: general.DirtyTalkCommand,
+	commands.EightballRegister.Name: commands.EightBallCommand,
 }
 
 // Register commands
 func RegisterCommands(s *discordgo.Session, GuildID string) {
 	log.Println("Loading commands...")
-	for i, v := range commands {
+	for i, v := range slashcommands {
 		cmd, err := s.ApplicationCommandCreate(s.State.User.ID, GuildID, &v)
 		if err != nil {
 			log.Panicf("Cannot create '%v' command: %v", v.Name, err)
