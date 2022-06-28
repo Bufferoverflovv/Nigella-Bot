@@ -10,8 +10,10 @@ import (
 
 // Add commands here
 var slashcommands = []discordgo.ApplicationCommand{
-	games.EightballRegister,
 	general.HelloRegister,
+	general.DirtyTalkRegister,
+	general.RouletteRegister,
+	games.EightballRegister,
 }
 
 var registeredCommands = make([]*discordgo.ApplicationCommand, len(slashcommands))
