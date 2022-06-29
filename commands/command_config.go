@@ -13,16 +13,18 @@ var slashcommands = []discordgo.ApplicationCommand{
 	general.HelloRegister,
 	general.DirtyTalkRegister,
 	general.RouletteRegister,
+	general.ImpressiveRegister,
 	games.EightballRegister,
 }
 
 var registeredCommands = make([]*discordgo.ApplicationCommand, len(slashcommands))
 
 var commandHandlers = map[string]func(s *discordgo.Session, i *discordgo.InteractionCreate){
-	general.HelloRegister.Name:     general.HelloCommand,
-	general.RouletteRegister.Name:  general.RouletteCommand,
-	general.DirtyTalkRegister.Name: general.DirtyTalkCommand,
-	games.EightballRegister.Name:   games.EightBallCommand,
+	general.HelloRegister.Name:      general.HelloCommand,
+	general.RouletteRegister.Name:   general.RouletteCommand,
+	general.DirtyTalkRegister.Name:  general.DirtyTalkCommand,
+	general.ImpressiveRegister.Name: general.ImpressiveCommand,
+	games.EightballRegister.Name:    games.EightBallCommand,
 }
 
 // Register commands
